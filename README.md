@@ -1,134 +1,148 @@
-# ![RealWorld Example App](logo.png)
+# Conduit: Technical Test for Interns
 
-> **React / Vite + SWC / Express.js / Sequelize / PostgreSQL codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://realworld.io/) spec and API.**
+Welcome! In this test you will work on a real, existing web application and add
+a new feature to it. We want to see how you **read and understand** code that
+you did not write, and how you **change it safely**.
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **React / Vite + SWC / Express.js / Sequelize / PostgreSQL** including CRUD operations, authentication, routing, pagination, and more.
+## 1. About the project
 
-**[Demo app](https://conduit-realworld-example-app.fly.dev/)&nbsp;&nbsp;|&nbsp;&nbsp;[With Create React App](https://github.com/TonyMckes/conduit-realworld-example-app/tree/create-react-app)&nbsp;&nbsp;|&nbsp;&nbsp;[Other RealWorld Example Apps](https://codebase.show/projects/realworld?category=fullstack)**
+**Conduit** is a blogging platform (like a small Medium). Users can sign up,
+write articles, add tags, comment, favorite articles and follow other users.
 
-> For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
+| Layer    | Technology                                   |
+| -------- | -------------------------------------------- |
+| Frontend | React + Vite (folder `frontend/`)            |
+| Backend  | Node.js + Express (folder `backend/`)        |
+| Database | PostgreSQL, with the Sequelize ORM           |
+| Run      | Docker + docker compose                      |
 
----
+**Credits:** This project is based on the open-source
+[Conduit RealWorld example app](https://github.com/TonyMckes/conduit-realworld-example-app)
+by **TonyMckes** and contributors, part of the
+[RealWorld](https://github.com/gothinkster/realworld) project. It is used under
+the MIT License (see [LICENSE](LICENSE)). We only added a Docker setup, database
+migrations and seed data.
 
-## Getting Started
+## 2. Prerequisites
 
-These instructions will help you install and run the project on your local machine for development and testing.
+Install these tools before you start:
 
-### Prerequisites
-
-Before you run the project, make sure that you have the following tools and software installed on your computer:
-
-- Text editor/IDE (e.g., VS Code, Sublime Text, Atom)
 - [Git](https://git-scm.com/downloads)
-- [Node.js](https://nodejs.org/en/download/) `v18.11.0+`
-- [NPM](https://www.npmjs.com/) (usually included with Node.js)
-- SQL database
+- [Node.js](https://nodejs.org/) (LTS version)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (it includes `docker compose`)
 
-### Installation
+## 3. Steps
 
-To install the project on your computer, follow these steps:
-
-1. Clone the repository to your local machine.
-
-   ```bash
-   git clone https://github.com/TonyMckes/conduit-realworld-example-app.git
-   ```
-
-2. Navigate to the project directory.
-
-   ```bash
-   cd conduit-realworld-example-app
-   ```
-
-3. Install project dependencies by running the command:
-
-   ```bash
-   npm install
-   ```
-
-### Configuration
-
-1. Create a `.env` file in the root directory of the project
-2. Add the required environment variables as specified in the [`.env.example`](backend/.env.example) file
-3. (Optional) update the Sequelize configuration parameters in the [`config.js`](backend/config/config.js) file
-4. If you are **not** using PostgreSQL, you may also have to install the driver for your database:
-
-   <details>
-   <summary>Use one of the following commands to install:</summary><br/>
-
-   > Note: `-w backend` option is used to install it in the backend [`package.json`](backend/package.json).
-
-   ```bash
-   npm install -w backend pg pg-hstore  # Postgres (already installed)
-   npm install -w backend mysql2
-   npm install -w backend mariadb
-   npm install -w backend sqlite3
-   npm install -w backend tedious       # Microsoft SQL Server
-   npm install -w backend oracledb      # Oracle Database
-   ```
-
-   > :information_source: Visit [Sequelize - Installing](https://sequelize.org/docs/v6/getting-started/#installing) for more infomation.
-
-   ***
-
-   </details>
-
-5. Create database specified by configuration by executing
-
-   > :warning: Please, make sure you have already created a superuser for your database.
-
-   ```bash
-   npm run sqlz -- db:create
-   ```
-
-   > :information_source: The command `npm run sqlz` is an alias for `npx -w backend sequelize-cli`.  
-   > Execute `npm run sqlz -- --help` to see more of `sequelize-cli` commands availables.
-
-6. Optionally you can run the following command to populate your database with some dummy data:
-
-   ```bash
-   npm run sqlz -- db:seed:all
-   ```
-
-### Usage
-
-#### Development Server
-
-To run the project, follow these steps:
-
-1. Start the development server by executing the command:
-
-   ```bash
-   npm run dev
-   ```
-
-2. Open a web browser and navigate to:
-   - Home page should be available at [`http://localhost:3000/`](http://localhost:3000).
-   - API endpoints should be available at [`http://localhost:3001/api`](http://localhost:3001/api).
-
-#### Running Tests
-
-To run tests, simply run the following command:
+### 3.1 Clone the repository
 
 ```bash
-npm run test
+git clone <repository-url>
+cd <repository-folder>
 ```
 
-#### Production
+### 3.2 Create your own branch
 
-The following command will build the production version of the app:
+Name your branch with your full name, in lowercase, with hyphens.
+Example for Ahmed Benali:
 
 ```bash
-npm run start
+git checkout -b ahmed-benali
 ```
 
-## License
+### 3.3 Create your candidate folder
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Create a folder with your full name inside `candidates/`.
+Example: `candidates/ahmed-benali/`. You will put your `SOLUTION.md` file in it
+(see section 4).
 
-## Acknowledgments
+### 3.4 Run the project (before you change anything!)
 
-- [RealWorld](https://realworld.io/)
-- [RealWorld (GitHub)](https://github.com/gothinkster/realworld)
-- [CodebaseShow](https://codebase.show/)
-- [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+```bash
+cp .env.example .env        # on Windows (PowerShell): copy .env.example .env
+docker compose up --build
+```
+
+The first start takes a few minutes. When it is ready:
+
+- Website: <http://localhost:3000>
+- API: <http://localhost:3001/api/articles>
+
+The database tables and example data are created automatically when the
+backend starts (Sequelize migrations and seeders).
+
+You can log in with an example user:
+
+| Email               | Password      |
+| ------------------- | ------------- |
+| `example1@mail.com` | `examplePwd1` |
+| `example2@mail.com` | `examplePwd2` |
+
+(Users `example3` to `example5` follow the same pattern.)
+
+**Check that everything works before you change anything:** open the website,
+log in, open an article, filter by a tag, favorite an article, write a comment.
+
+Useful commands:
+
+```bash
+docker compose up                 # start
+docker compose down               # stop
+docker compose down -v            # stop AND delete the database (fresh start)
+docker compose logs -f server     # see backend logs
+docker compose restart server     # restart the backend (runs new migrations/seeders)
+docker compose exec db psql -U conduit -d conduit   # open the database
+```
+
+Your code changes in `backend/` and `frontend/` are picked up automatically.
+You do not need to rebuild the images, except if you add a new npm package
+(then run `docker compose up --build`).
+
+### 3.5 Implement the task
+
+Read [TASK.md](TASK.md) carefully and implement the feature in the project code.
+Read all the acceptance criteria. Some of them are easy to miss.
+
+### 3.6 Commit often
+
+Make **small commits with clear messages** while you work. Do not make one big
+commit at the end. Example:
+
+```text
+Add status column to articles (migration)
+Return article status in the API
+Hide draft articles from the global feed
+Add status filter on the profile page
+```
+
+### 3.7 Push and open a Pull Request
+
+```bash
+git push -u origin ahmed-benali
+```
+
+Then open a **Pull Request** to the `main` branch and fill in the template.
+
+## 4. Required: SOLUTION.md
+
+Inside your folder (`candidates/<your-full-name>/SOLUTION.md`), explain **in your
+own words**:
+
+1. **How you understood the existing code**: which parts you read first and why.
+2. **What you changed** in the database, the backend and the frontend, and why.
+3. **Problems you met** and how you solved them.
+4. **How you tested** your work.
+5. **What you would improve** with more time.
+
+Short and honest is better than long and generic.
+
+## 5. AI policy
+
+You are allowed to use AI tools. But you must understand every line you submit.
+In the interview we will ask you to explain your code and make a small change
+live, without AI.
+
+## 6. Deadline
+
+[placeholder]
+
+Good luck!
