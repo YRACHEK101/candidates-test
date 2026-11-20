@@ -57,48 +57,54 @@ We want to add a **status** to every article:
    - Article does not exist: `404`
    - Invalid status value (for example `"deleted"`): `422`, with a clear error
      message in the same error format as the rest of the API.
-9. **Draft and archived articles are only visible to their author.** For every
-   other user (logged in or not) they must **not** appear in:
+9. **Draft and archived articles are never shown in shared lists.** For
+   everybody (logged in or not, **including the author**), they must **not**
+   appear in:
    - the Global Feed
    - "Your Feed" (articles of followed users)
    - the tag filter (clicking a popular tag)
-   - another user's profile ("My Articles" **and** "Favorited Articles" tabs)
-   - the article page (`/article/<slug>`): it must answer as if the article does
-     not exist (`404`), and other users cannot comment on it or favorite it.
-10. The **author** still sees their own draft and archived articles on their own
-    profile and can open them.
-11. Pagination must stay correct: the number of pages must match the number of
-    articles the user can actually see (no empty pages at the end).
+   - the "Favorited Articles" tab of any profile
+10. **The author's own profile is the only list where they appear.**
+    - On their own profile ("My Articles"), the author sees all their articles,
+      whatever the status.
+    - On someone else's profile, a user only sees published articles.
+11. **The article page** (`/article/<slug>`) of a draft or archived article:
+    - The author can open it.
+    - For any other user, it must answer as if the article does not exist
+      (`404`), and they cannot comment on it or favorite it.
+12. Pagination must be correct everywhere: the number of pages must match the
+    number of articles the user can actually see (no empty pages at the end).
 
 ### User interface
 
-12. In the article editor, the author can choose whether the article is saved as
+13. In the article editor, the author can choose whether the article is saved as
     a draft or published (when creating **and** when editing).
-13. On the article page, the author can see the current status and change it
+14. On the article page, the author can see the current status and change it
     (publish / archive / move back to draft) without opening the editor.
     While the change is saving, the user sees that something is happening, and
     if it fails, the user sees an error message.
-14. On **their own** profile page, the author can filter their articles by
+15. On **their own** profile page, the author can filter their articles by
     status: **All**, **Published**, **Draft**, **Archived**. The list shows a
     loading state while it loads and an error message if loading fails.
-15. In the article lists, draft and archived articles show a visible status
+16. In the article lists, draft and archived articles show a visible status
     label so that the author can recognize them.
-16. Other users never see the status filter or the status labels on someone
+17. Other users never see the status filter or the status labels on someone
     else's profile.
 
 ### Do not break anything
 
-17. All existing features keep working: sign up, login, settings, create / edit
+18. All existing features keep working: sign up, login, settings, create / edit
     / delete article, comments, favorites, follow / unfollow, tags, feeds,
     pagination.
-18. The project still starts with `docker compose up` on a fresh database
+19. The project still starts with `docker compose up` on a fresh database
     **and** on a database that already exists (your migration and seed data are
     applied automatically).
 
 ## Expected behavior (examples)
 
 - `exampleUser1` creates "My trip to Japan" and saves it as a **draft**.
-  - `exampleUser1` sees it on their profile with a "Draft" label.
+  - `exampleUser1` sees it on their own profile with a "Draft" label, but
+    not in the Global Feed.
   - `exampleUser2` does not see it in the Global Feed, in the tag filter, or on
     `exampleUser1`'s profile. If `exampleUser2` opens its URL directly, they get
     the "not found" page.
