@@ -30,7 +30,7 @@
 
 ## AI tools used
 
-<!-- Which tools (ChatGPT, Copilot, Claude, Cursor...) and for what. Write "None" if none. -->
+<!-- Which tools (ChatGPT, Copilot, Gemini, Cursor...) and for what. Write "None" if none. -->
 
 | Tool | Used for |
 | ---- | -------- |
