@@ -18,7 +18,8 @@ app.use(express.json());
 
 (async () => {
   try {
-    await sequelize.sync({ alter: true });
+    // The schema is created by migrations (npm run sqlz -- db:migrate)
+    await sequelize.authenticate();
     console.log(`Connection with ${env} database has been established.`);
   } catch (error) {
     console.error("Unable to connect to the database:", error);
