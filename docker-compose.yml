@@ -1,0 +1,53 @@
+# Start everything with: docker compose up --build
+# Secrets come from the .env file (copy .env.example to .env first).
+
+services:
+  db:
+    build: ./db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Missing .env file - copy .env.example to .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Missing .env file - copy .env.example to .env}
+      POSTGRES_DB: ${POSTGRES_DB:?Missing .env file - copy .env.example to .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      JWT_KEY: ${JWT_KEY:?Missing .env file - copy .env.example to .env}
+      DEV_DB_USERNAME: ${POSTGRES_USER}
+      DEV_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DEV_DB_NAME: ${POSTGRES_DB}
+      DEV_DB_HOSTNAME: db
+      DEV_DB_DIALECT: postgres
+    ports:
+      - "3001:3001"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # Your code changes are picked up without rebuilding the image
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+
+  client:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      API_PROXY_TARGET: http://server:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    volumes:
+      # Your code changes are picked up without rebuilding the image
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+
+volumes:
+  db-data:
