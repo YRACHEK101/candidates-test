@@ -40,15 +40,37 @@ Install these tools before you start:
 
 ## 3. Run the project
 
-### 3.1 Get the code and create your branch
+### 3.1 Create your own private copy of this repository
+
+This repository is a **template**. You do not push to it. You work in your own
+**private** copy.
+
+1. Open <https://github.com/YRACHEK101/candidates-test> and click
+   **Use this template** → **Create a new repository**:
+   - **Owner:** your own GitHub account
+   - **Repository name:** `conduit-test-firstname-lastname` (example:
+     `conduit-test-ahmed-benali`)
+   - **Visibility:** **Private** (mandatory)
+
+   > **Do not use "Fork".** A fork of a public repository is always public.
+   > Always use **Use this template**.
+
+2. **Right away, add the Tech Lead as a collaborator** to your repository:
+   **Settings → Collaborators → Add people**, then enter the GitHub username
+   `YRACHEK101` or the email `r.yahia.dev@gmail.com`.
+   Do this at the **start** of the test, not at the end.
+
+### 3.2 Get the code and create your branch
+
+Clone **your** repository (not the template):
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone <url-of-your-repository>
+cd conduit-test-firstname-lastname
 git checkout -b firstname-lastname      # example: git checkout -b ahmed-benali
 ```
 
-### 3.2 Start everything with Docker
+### 3.3 Start everything with Docker
 
 ```bash
 cp .env.example .env
@@ -63,7 +85,7 @@ The first start takes a few minutes. When it is ready:
 The database tables and example data are created automatically when the
 backend starts (Sequelize migrations and seeders).
 
-### 3.3 Log in with an example user
+### 3.4 Log in with an example user
 
 | Email               | Password      | Username       |
 | ------------------- | ------------- | -------------- |
@@ -76,7 +98,7 @@ Users `example3` to `example5` follow the same pattern.
 website, log in, open an article, click a tag, favorite an article and write a
 comment.
 
-### 3.4 Useful commands
+### 3.5 Useful commands
 
 ```bash
 docker compose up                 # start
@@ -170,19 +192,33 @@ start.
   Add status filter on the profile page
   ```
 
-- **Do not modify other candidates' branches or folders.**
-- Database changes must be done with a **new Sequelize migration**.
-- When you are done, push your branch and open a **Pull Request to `main`**.
-  Fill in the Pull Request template.
-
-  ```bash
-  git push -u origin firstname-lastname
-  ```
-
+- Database changes must be done with a **new Sequelize migration**. Do not
+  edit existing migrations and do not use `sequelize.sync()`.
+- Never commit your `.env` file or any secret.
+- **Your repository must stay PRIVATE** until the end of the recruitment
+  process. Do not make it public and do not share your code with other
+  candidates.
+- **Do not use "Fork"** (a fork of a public repository is always public). Use
+  **Use this template**, as explained in section 3.1.
 - **AI policy:** You are allowed to use AI tools. But you must understand every
   line you submit. In the interview we will ask you to explain your code and
   make a small change live, without AI.
-- **Deadline:** [placeholder]
+
+### Delivery
+
+1. Push your branch to **your** repository:
+
+   ```bash
+   git push -u origin firstname-lastname
+   ```
+
+2. In **your** repository, open a **Pull Request from `firstname-lastname` to
+   `main`** and fill in the Pull Request template. **Do not merge it.**
+3. Reply to the HR email with the **link to your repository** and the **link to
+   your Pull Request**.
+
+**Duration:** 5 days. **Deadline:** no later than **November 27, 2026 at
+23:59**.
 
 ## 6. SOLUTION.md
 
