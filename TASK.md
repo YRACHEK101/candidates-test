@@ -1,6 +1,6 @@
 # TASK: Article status (Draft / Published / Archived)
 
-**Type:** Feature  **Estimated effort:** [X hours/days]
+**Type:** Feature  **Duration:** 5 days  **Deadline:** no later than November 27, 2026 at 23:59
 
 ## Context
 
